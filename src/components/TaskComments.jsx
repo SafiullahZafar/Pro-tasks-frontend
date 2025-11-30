@@ -33,9 +33,16 @@ const TaskComments = ({ socket, taskId, currentUser }) => {
   useEffect(() => {
     if (!socket) return;
 
-    const handleNewComment = (comment) => {
-      if (comment.taskId === taskId) setComments((prev) => [...prev, comment]);
-    };
+   const handleNewComment = (comment) => {
+  if (comment.taskId === taskId) {
+    setComments((prev) => {
+      // Prevent duplicates by checking _id
+      if (prev.some(c => c._id === comment._id)) return prev;
+      return [...prev, comment];
+    });
+  }
+};
+         
 
     socket.on("newComment", handleNewComment);
 
@@ -45,25 +52,26 @@ const TaskComments = ({ socket, taskId, currentUser }) => {
   }, [socket, taskId]);
 
   // Send comment
-  const sendComment = async () => {
-    if (!message.trim()) return;
+  // Send comment
+const sendComment = async () => {
+  if (!message.trim()) return;
 
-    try {
-      const res = await axios.post(
-        `http://localhost:5000/api/tasks/${taskId}/comments`,
-        {
-          user: currentUser,
-          message,
-        },
-        config
-      );
-      setMessage(""); // Clear input
-      // Optional: append the new comment immediately
-      setComments((prev) => [...prev, res.data]);
-    } catch (err) {
-      console.error("Failed to send comment:", err);
-    }
-  };
+  try {
+    await axios.post(
+      `http://localhost:5000/api/tasks/${taskId}/comments`,
+      {
+        user: currentUser,
+        message,
+      },
+      config
+    );
+    setMessage(""); // Clear input
+    // DO NOT manually add comment to state — socket will handle it
+  } catch (err) {
+    console.error("Failed to send comment:", err);
+  }
+};
+
 
   return (
     <div className="p-2 border rounded mt-2">

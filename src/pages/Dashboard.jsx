@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 import DroppableColum from '../components/DroppableColum';
 import io from 'socket.io-client';
 import TaskComments from '../components/TaskComments';
+import { AuthContext } from './AuthContext';
 
 const socket = io('http://localhost:5000');
 const Dashboard = () => {
@@ -15,7 +16,7 @@ const Dashboard = () => {
     const [description, setDescription] = useState('');
     const [open, setOpen] = useState(false);
     const [search, setSearch] = useState('');
-    const [filterStatus, setFilterStatus] = useState('all')  // all/pending/complete
+    const [filterStatus, setFilterStatus] = useState('all');  // all/pending/complete
 
     const token = localStorage.getItem('token');
 
@@ -46,7 +47,7 @@ const Dashboard = () => {
             socket.off('newTask');
             socket.off('taskUpdated');
         };
-    }, [token]);
+    }, []);
 
     const addTask = async () => {
         try {

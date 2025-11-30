@@ -1,5 +1,4 @@
 import { useDrag } from "react-dnd";
-import Task from "../../../backend/models/Task";
 
 const DraggableTask = ({task}) => {
     const [{isDragging},drag] =useDrag(()=>({

@@ -6,7 +6,6 @@ import { toast } from 'react-hot-toast';
 import DroppableColum from '../components/DroppableColum';
 import io from 'socket.io-client';
 import TaskComments from '../components/TaskComments';
-import { AuthContext } from './AuthContext';
 
 const socket = io('http://localhost:5000');
 const Dashboard = () => {

@@ -102,4 +102,4 @@ const sendComment = async () => {
   );
 };
 
-export default TaskComments;
+export default TaskComments

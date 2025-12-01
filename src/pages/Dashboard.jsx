@@ -116,17 +116,42 @@ const Dashboard = () => {
     return (
         <div className='min-h-screen bg-gray-100'>
             <Navebar user={user} logout={logout} />
-            <Sidebar logout={logout} user={user} />
+            <div className='hidden lg:block'>
+                 <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <Sidebar user={user} logout={logout} />
+
+      {/* Main content */}
+      <div className="flex-1 bg-gray-100 flex items-center justify-center p-6">
+        {/* Full screen heading only on laptops and larger screens */}
+        <div className="hidden lg:flex flex-col items-center text-center space-y-6 w-full">
+          <h1 className="text-6xl font-extrabold text-gray-800">
+            Welcome to Pro Dashboard
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl">
+            Here, anyone can become a user and manage tasks. Admins can assign tasks, mark them as completed, in process, or pending, and users can comment. 
+            <br />
+            ⚠️ Note: Currently, the comments feature updates only after page reload — we are working to fix it.
+          </p>
+          <p className="text-lg text-gray-500">
+            Best of luck! Try creating four of your own tasks and explore all features.
+          </p>
+        </div>
+      </div>
+      </div>
+    </div>
             <div className='md:hidden flex justify-between items-center p-4 bg-gray-800 text-white'>
                 <h1 className='font-bold'>Dashboard</h1>
                 <button onClick={() => setOpen(!open)}>☰</button>
-            </div>
+                            </div>
             {open && (
                 <div
                     className='bg-gray-800 text-white md:hidden p-4'>
                     <Sidebar user={user} logout={logout} />
+                
                 </div>
             )}
+            
             <div className='flex flex-col md:flex-row gap-4'>
                 {['pending', 'in process', 'completed'].map((status) => (
                     <DroppableColum

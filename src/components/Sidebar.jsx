@@ -2,6 +2,7 @@ import React from 'react'
 
 const Sidebar = ({user,logout}) => {
   return (
+    <div>
     <div className='bg-gray-800 h-screen w-64 p-4 text-white hidden md:block'>
         <h2 className='mb-4 text-xl font-bold'>Dashboard</h2>
         <p className='mb-2'>Hello, {user.name}</p>
@@ -12,6 +13,8 @@ const Sidebar = ({user,logout}) => {
         >
             Logout
         </button>
+        </div>
+        
     </div>
   );
 };
